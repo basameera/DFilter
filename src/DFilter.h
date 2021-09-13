@@ -53,4 +53,20 @@ private:
     float preVal;
 };
 
+// ------------------------------
+// Sensor Fusion: Complementary Filter
+// ------------------------------
+
+class CompFilter
+{
+public:
+    CompFilter(float alpha); //Constructor. attach pin to blink
+    ~CompFilter();
+    float update(float val1, float val2);
+
+private:
+    float _alpha;
+    float _beta;
+};
+
 #endif

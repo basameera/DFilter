@@ -78,3 +78,25 @@ float CLPF::update(float val)
     preVal = out;
     return out;
 }
+
+// ------------------------------
+// Sensor Fusion: Complementary Filter
+// ------------------------------
+
+// Constructor
+CompFilter::CompFilter(float alpha)
+{
+    _alpha = alpha;
+    _beta = 1 - alpha;
+}
+
+// Destructor
+CompFilter::~CompFilter()
+{
+}
+
+// update
+float CompFilter::update(float val1, float val2)
+{
+    return (val1 * _alpha) + (val2 * _beta);
+}
