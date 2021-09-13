@@ -8,6 +8,10 @@
 #include <Arduino.h>
 #include "DFilter.h"
 
+// ------------------------------
+// DFilter: 3 element FIFO filter
+// ------------------------------
+
 // Constructor
 DFilter::DFilter(float W1, float W2, float W3)
 {
@@ -48,4 +52,29 @@ float DFilter::update(void)
 {
     output_val = (fifo_buff[0] * w1) + (fifo_buff[1] * w2) + (fifo_buff[2] * w3);
     return output_val;
+}
+
+// ------------------------------
+// Complementary Low Pass Filter
+// ------------------------------
+
+// Constructor
+CLPF::CLPF(float alpha)
+{
+    _alpha = alpha;
+    _beta = 1 - alpha;
+    preVal = 0;
+}
+
+// Destructor
+CLPF::~CLPF()
+{
+}
+
+// update
+float CLPF::update(float val)
+{
+    float out = (val * _alpha) + (preVal * _beta);
+    preVal = out;
+    return out;
 }

@@ -12,6 +12,10 @@
 #define ON true
 #define OFF false
 
+// ------------------------------
+// DFilter: 3 element FIFO filter
+// ------------------------------
+
 #define FIFO_SIZE 3
 
 class DFilter
@@ -30,6 +34,23 @@ public:
 private:
     float fifo_buff[FIFO_SIZE];
     float output_val;
+};
+
+// ------------------------------
+// Complementary Low Pass Filter
+// ------------------------------
+
+class CLPF
+{
+public:
+    CLPF(float alpha); //Constructor. attach pin to blink
+    ~CLPF();
+    float update(float val);
+
+private:
+    float _alpha;
+    float _beta;
+    float preVal;
 };
 
 #endif
